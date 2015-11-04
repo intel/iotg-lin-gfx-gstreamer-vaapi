@@ -1,0 +1,5 @@
+###
+### GMS integration
+###
+upstream b76f4825c5e57609b8179f886c371f33bdd6b138
+	vaapidecode: relax guards for memory:VASurface capsfeature
