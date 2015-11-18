@@ -1,0 +1,5 @@
+###
+### GMS integration
+###
+upstream a24918037d3d3638ad785bde2a334e29d2a656a1
+	decoder: vp9: Fix last/golden/altref frame index setting
