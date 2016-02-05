@@ -3,3 +3,10 @@
 ###
 upstream a24918037d3d3638ad785bde2a334e29d2a656a1
 	decoder: vp9: Fix last/golden/altref frame index setting
+###
+### GMS integration
+###
+upstream 17412c314d71bff7538a88382f09d3b278dd7dad
+	vaapidecode: Fix renegotiation for resolution change
+integration/bug_fixing 8fe7440f5afc4ef7ea086fdeca31b7c16ffd4260
+	Add another camera support called icamerasrc in GST-VAAPI
