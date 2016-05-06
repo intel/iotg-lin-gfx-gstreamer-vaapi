@@ -246,4 +246,8 @@ gboolean
 gst_vaapi_filter_set_skintone (GstVaapiFilter * filter,
     gboolean enhance);
 
+gboolean
+gst_vaapi_filter_colorcorrect (GstVaapiFilter * filter,
+    GstVaapiSurface * surface, GstBuffer * buf);
+
 #endif /* GST_VAAPI_FILTER_H */
