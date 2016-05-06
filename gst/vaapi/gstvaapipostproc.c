@@ -469,6 +469,25 @@ set_best_deint_method (GstVaapiPostproc * postproc, guint flags,
   return success;
 }
 
+static gboolean
+gst_vaapipostproc_colorcorrect (GstVaapiPostproc * postproc, GstBuffer * buf)
+{
+  GstVaapiVideoMeta *buf_meta;
+  GstVaapiSurface *buf_surface;
+  gboolean ret;
+
+  buf_meta = gst_buffer_get_vaapi_video_meta (buf);
+  if (!buf_meta) {
+    GST_ERROR ("No meta data!");
+    return FALSE;
+  }
+
+  buf_surface = gst_vaapi_video_meta_get_surface (buf_meta);
+  ret = gst_vaapi_filter_colorcorrect (postproc->filter, buf_surface, buf);
+
+  return ret;
+}
+
 static GstFlowReturn
 gst_vaapipostproc_process_vpp (GstBaseTransform * trans, GstBuffer * inbuf,
     GstBuffer * outbuf)
@@ -1180,6 +1199,8 @@ gst_vaapipostproc_transform (GstBaseTransform * trans, GstBuffer * inbuf,
   GstVaapiPostproc *const postproc = GST_VAAPIPOSTPROC (trans);
   GstBuffer *buf;
   GstFlowReturn ret;
+
+  gst_vaapipostproc_colorcorrect (postproc, inbuf);
 
   ret =
       gst_vaapi_plugin_base_get_input_buffer (GST_VAAPI_PLUGIN_BASE (postproc),
