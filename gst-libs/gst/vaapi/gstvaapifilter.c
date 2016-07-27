@@ -38,6 +38,12 @@
 #define GST_VAAPI_FILTER(obj) \
     ((GstVaapiFilter *)(obj))
 
+// Color conversion
+#define RGB565_32_TO_RGBX(color) \
+       ((color & 0x00070000) | (color & 0x001f0000)<<3) | \
+       ((color & 0x00000300) | (color & 0x00003f00)<<2) | \
+       ((color & 0x00000007) | (color & 0x0000001f)<<3)
+
 typedef struct _GstVaapiFilterOpData GstVaapiFilterOpData;
 struct _GstVaapiFilterOpData
 {
@@ -1876,4 +1882,35 @@ gst_vaapi_filter_set_skintone (GstVaapiFilter * filter, gboolean enhance)
 
   return op_set_skintone (filter,
       find_operation (filter, GST_VAAPI_FILTER_OP_SKINTONE), enhance);
+}
+
+gboolean
+gst_vaapi_filter_colorcorrect (GstVaapiFilter * filter,
+    GstVaapiSurface * surface, GstBuffer * buf)
+{
+  GstMapInfo map;
+  guint w, h, width, height;
+  guint32 *pixel;
+
+  g_return_val_if_fail (filter != NULL, FALSE);
+  g_return_val_if_fail (surface != NULL, FALSE);
+
+  if (surface->chroma_type == GST_VAAPI_CHROMA_TYPE_RGB16_32BPP) {
+    width = surface->width;
+    height = surface->height;
+
+    gst_buffer_map (buf, &map, GST_MAP_WRITE | GST_MAP_READ);
+
+    pixel = (gint32 *) map.data;
+    for (w = 0; w < width; w++) {
+      for (h = 0; h < height; h++) {
+        *(pixel) = RGB565_32_TO_RGBX (*(pixel));
+        pixel++;
+      }
+    }
+
+    gst_buffer_unmap (buf, &map);
+  }
+
+  return TRUE;
 }
