@@ -3,3 +3,10 @@
 ###
 upstream a486942ba2d44ba2f60fec25175c681786021b48
 	decoder: h265: Fix offset calculation in codec_data parsing
+###
+### GMS integration
+###
+upstream 9701bb18eebd586f1cce43be3e4de7e103f5b88a
+	decoder: h265: handle the SEI NAL units included in codec_data
+topic/icamerasrc_support b4bb6982fc47a0f3fa62b5132c483ba00bec3923
+	Enable preview of RGB565-32 format on vaapipostproc
