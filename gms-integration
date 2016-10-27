@@ -1,0 +1,5 @@
+###
+### GMS integration
+###
+upstream b60e2df63d8e1c214021dfb8a2bc302ce03eb97a
+	encoder: h264,h265: fix regression in offset count
