@@ -3,3 +3,10 @@
 ###
 upstream a486942ba2d44ba2f60fec25175c681786021b48
 	decoder: h265: Fix offset calculation in codec_data parsing
+###
+### GMS integration
+###
+upstream c0d2742967372b1e2f926574570380ff5f669ff2
+	build: add LIBVA_WAYLAND_CFLAGS to libgstvaapiegl
+topic/icamerasrc_support b4bb6982fc47a0f3fa62b5132c483ba00bec3923
+	Enable preview of RGB565-32 format on vaapipostproc
